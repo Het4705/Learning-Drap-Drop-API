@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop Practice</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev, id) {
+
+            ev.dataTransfer.setData("text", ev.target.id);
+            ev.dataTransfer.setData("id", id);
+
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            if (ev.dataTransfer.getData("id") == "trishul") {
+                var data = ev.dataTransfer.getData("text");
+                ev.target.appendChild(document.getElementById(data));
+                const message=document.getElementById("message");
+                message.style.color = "green";
+                message.innerText = "Correct answer";
+                message.style.display = "inline";
+                document.getElementById("next").style.display = "inline"
+               ;
+            }
+            else {
+                const message=document.getElementById("message");
+                message.style.color = "red";
+                message.innerText = "Incorrect Answer";
+                message.style.display = "inline";
+            }
+
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class="main">
+        <h1>Learning Drag And Drop</h1>
+        <div class="Box">
+            <p id="Qno">Question 1</p>
+            <hr>
+            <br>
+            <h3>Which one of the following is Weapon of lord Shiva <span style="color: red;">?</span></h3>
+            <div id="image-box">
+                <div class="div1">
+                    <img id="img1" src="./Images/images (1).jpeg" height="100%" width="100%" alt="gada" draggable="true"
+                        ondragstart="drag(event,'gada')">
+                </div>
+                <div class="div2">
+                    <img id="img2" src="./Images/images.jpeg" alt="trishul" height="100%" width="100%" draggable="true"
+                        ondragstart="drag(event,'trishul')">
+                </div>
+                <div class="div3">
+                    <img id="img3" src="./Images/chakra.avif" alt="chakra" height="100%" width="100%" draggable="true"
+                        ondragstart="drag(event,'chakra')">
+                </div>
+                <div class="div4">
+                    <img id="img4" src="./Images/talwar.jpg" alt="talwar" height="100%" width="100%" draggable="true"
+                        ondragstart="drag(event,'talwar')">
+                </div>
+            </div>
+
+            <div class="ans-container">
+                <p style="margin-bottom: 4px; margin-top: 4px; color: #383838be;">Drop your answer below</p>
+                <div id="ansbox" ondrop="drop(event)" ondragover="allowDrop(event)">
+                </div>
+            </div>
+            <div style="display: flex; gap: 10px ;margin-top: 13px;">
+
+                <p id="message" style="display: none;">sadsads</p>
+                <!-- <a id="next" href="index.html" style="display: none;">-></a> -->
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
